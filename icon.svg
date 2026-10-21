@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="0" fill="#1d4e9b"/>
+  <circle cx="256" cy="256" r="230" fill="#f3e5bb"/>
+  <circle cx="256" cy="256" r="230" fill="none" stroke="#3bb5ad" stroke-width="14"/>
+  <!-- poste y base -->
+  <rect x="246" y="120" width="20" height="270" rx="6" fill="#b5523b"/>
+  <path d="M176 400 Q256 370 336 400 L336 414 L176 414 Z" fill="#e0953a"/>
+  <!-- remate -->
+  <circle cx="256" cy="112" r="18" fill="#e0953a"/>
+  <!-- brazo -->
+  <rect x="116" y="146" width="280" height="14" rx="7" fill="#e0953a"/>
+  <!-- cuerdas -->
+  <g stroke="#3b2a14" stroke-width="4">
+    <line x1="132" y1="153" x2="92" y2="268"/><line x1="132" y1="153" x2="172" y2="268"/>
+    <line x1="380" y1="153" x2="340" y2="268"/><line x1="380" y1="153" x2="420" y2="268"/>
+  </g>
+  <circle cx="132" cy="153" r="9" fill="#c0392b"/><circle cx="380" cy="153" r="9" fill="#c0392b"/>
+  <!-- platillos -->
+  <path d="M80 268 H184 Q176 310 132 310 Q88 310 80 268 Z" fill="#3bb5ad"/>
+  <path d="M328 268 H432 Q424 310 380 310 Q336 310 328 268 Z" fill="#3bb5ad"/>
+  <!-- corazón (izq) -->
+  <path d="M132 266 C112 248 112 228 124 226 C130 225 132 230 132 234 C132 230 134 225 140 226 C152 228 152 248 132 266 Z" fill="#c0392b"/>
+  <!-- pluma de Maat (dcha) -->
+  <path d="M380 266 C362 230 366 196 392 178 C388 210 392 236 384 266 Z" fill="#fffaf0" stroke="#2f5fb0" stroke-width="4"/>
+  <line x1="381" y1="266" x2="388" y2="190" stroke="#2f5fb0" stroke-width="3"/>
+</svg>

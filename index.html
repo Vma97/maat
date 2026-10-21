@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maat</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="theme-color" content="#1d4e9b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Maat">
+<style>
+:root{--bg:#e8d5a3;--card:#f5e9c9;--txt:#3b2a14;--mut:#7d6641;--ok:#1fa3a0;--y:#e0b030;--o:#e07b2a;--r:#c0392b;--ac:#1d4e9b}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#f3e5bb,#dcc58a);min-height:100vh;color:var(--txt);font-family:system-ui,sans-serif;padding:16px;max-width:480px;margin:auto}
+h1{font-size:22px;letter-spacing:.1em;color:var(--ac);margin:0 0 12px}
+h2{font-size:14px;color:var(--mut);margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em}
+.card{background:var(--card);border:1px solid #c9a96a;box-shadow:0 2px 0 #1fa3a0;border-radius:14px;padding:14px;margin-bottom:12px}
+.stats{display:flex;gap:8px}
+.stat{flex:1;text-align:center}
+.stat b{display:block;font-size:24px}
+.stat span{font-size:12px;color:var(--mut)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal div{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:13px;background:#ead9ab;cursor:pointer}
+.cal .h{background:none;color:var(--mut);font-size:11px;cursor:default;aspect-ratio:auto}
+.cal .c0{background:var(--ok);color:#fff}.cal .ch{background:#7fd0c8;color:#000}.cal .c1{background:var(--y);color:#000}.cal .c2{background:var(--o);color:#000}.cal .c3{background:var(--r);color:#fff}
+.cal .sel{outline:2px solid var(--ac)}.cal .today{font-weight:bold;text-decoration:underline}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+button{background:#e0cb98;color:var(--txt);border:0;border-radius:10px;padding:8px 12px;font-size:14px}
+button.p{background:var(--ac);color:#fff;font-weight:600}
+button:disabled{opacity:.35}
+.j{display:flex;gap:6px}.j button{flex:1;padding:12px}.j button.on{background:var(--ac);color:#fff;font-weight:700}
+.row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #d8c392}
+.row:last-child{border:0}.row label{flex:1}.row .x{color:var(--mut);padding:2px 6px;background:none}
+.row input.ed{flex:1;min-width:0;width:auto;background:transparent;padding:6px 4px}.row input.num{flex:none;width:52px;text-align:center;background:#ead9ab}
+input[type=text],input[type=number]{background:#ead9ab;color:var(--txt);border:0;border-radius:8px;padding:8px;font-size:14px;width:100%}
+.add{display:flex;gap:6px;margin-top:8px}.add input[type=number]{width:70px}
+.small{font-size:12px;color:var(--mut)}
+</style>
+</head>
+<body>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h1 style="margin:0">🪶 Maat</h1><button id="eb" onclick="toggleEdit()">✏️ Editar</button></div>
+
+<div class="card" style="padding:8px;background:#efdfb0">
+<img src="maat.png" alt="Maat" style="display:none;width:100%;border-radius:8px" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='maat.jpg'}" onload="this.style.display='block';document.getElementById('maat').style.display='none'">
+<svg id="maat" viewBox="0 0 400 130" width="100%" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="400" height="8" fill="#3bb5ad"/>
+  <g id="wl">
+    <polygon points="188,50 14,34 22,98 188,80" fill="#3bb5ad"/>
+    <polygon points="188,54 60,46 64,86 188,76" fill="#2f5fb0"/>
+    <polygon points="14,34 22,98 34,96 28,36" fill="#c0392b"/>
+  </g>
+  <g id="wr">
+    <polygon points="212,50 386,34 378,98 212,80" fill="#3bb5ad"/>
+    <polygon points="212,54 340,46 336,86 212,76" fill="#2f5fb0"/>
+    <polygon points="386,34 378,98 366,96 372,36" fill="#c0392b"/>
+  </g>
+  <g id="fl" stroke="#12534f" stroke-width="1" opacity=".45"></g>
+  <line x1="190" y1="53" x2="90" y2="48" stroke="#e0953a" stroke-width="5" stroke-linecap="round"/>
+  <line x1="210" y1="53" x2="310" y2="48" stroke="#e0953a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M188 50 H212 L214 98 H186 Z" fill="#b5523b"/>
+  <path d="M186 98 Q200 110 236 108 L240 114 L174 116 Z" fill="#e0953a"/>
+  <circle cx="200" cy="34" r="10" fill="#e0953a"/>
+  <path d="M189 34 Q189 20 200 20 Q211 20 211 34 L211 48 L206 48 L206 32 L194 32 L194 48 L189 48 Z" fill="#1a1a1a"/>
+  <ellipse cx="200" cy="9" rx="3.5" ry="9" fill="#f6f1e0" stroke="#999" stroke-width=".8"/>
+  <rect x="20" y="118" width="360" height="3" fill="#7d6641"/>
+</svg>
+</div>
+
+<div class="card stats">
+  <div class="stat"><b id="pts">0</b><span>🪶 puntos</span></div>
+  <div class="stat"><b id="streak">0</b><span>racha limpia</span></div>
+  <div class="stat"><b id="week">0</b><span>🍫 7 días</span></div>
+</div>
+
+<div class="card">
+  <div class="nav"><button onclick="mv(-1)">◀</button><b id="mon"></b><button onclick="mv(1)">▶</button></div>
+  <div class="cal" id="cal"></div>
+  <div class="small" style="margin-top:8px">🟢 0 · 🟩 ½ · 🟡 1 · 🟠 2 · 🔴 3+</div>
+</div>
+
+<div class="card">
+  <h2 id="dt"></h2>
+  <div class="j" id="j"></div>
+  <div class="small" style="margin:6px 0 10px">🍫 de este día: los botones suman. 0 = +10 🪶, hasta ½ = +7 🪶, hasta 1 = +5 🪶. Cada 2 días limpios seguidos: +15 🪶</div>
+  <div id="tasks"></div>
+  <div class="add" id="at"><input type="text" id="nt" placeholder="Nueva tarea diaria"><button onclick="addT()">+</button></div>
+</div>
+
+<div class="card">
+  <h2>Premios</h2>
+  <div id="rw"></div>
+  <div class="add" id="ar"><input type="text" id="nr" placeholder="Premio (ej: postre, capítulo extra)"><input type="number" id="nc" placeholder="pts" value="30"><button onclick="addR()">+</button></div>
+</div>
+
+<div class="card">
+  <h2>Canjeados</h2>
+  <div id="cl" class="small">Nada todavía</div>
+</div>
+
+<script>
+(function(){let s='';for(let i=0;i<=11;i++){const y1=52+28*i/11,x2=16+6*i/11,y2=34+64*i/11;s+=`<line x1="190" y1="${y1}" x2="${x2}" y2="${y2}"/><line x1="210" y1="${y1}" x2="${400-x2}" y2="${y2}"/>`}document.getElementById('fl').innerHTML=s})();
+const K='equilibrio_v1';
+let S=JSON.parse(localStorage.getItem(K)||'null')||{
+  days:{},
+  tasks:[{id:1,n:'Gimnasio + ducha'},{id:2,n:'Leer 30 min'},{id:3,n:'Cenar en el sofá (no en la cocina)'},{id:4,n:'Cama a su hora'},{id:5,n:'Estudio / tarea máster'}],
+  rewards:[{id:1,n:'Chocolate negro (2 onzas)',c:35},{id:4,n:'Yogur con miel',c:35},{id:5,n:'Puñado de frutos secos',c:35},{id:6,n:'Dos dátiles',c:35},{id:2,n:'Capítulo/peli extra',c:50},{id:3,n:'Compra de un artículo de 20 €',c:250}],
+  claimed:[],nid:10
+};
+const save=()=>localStorage.setItem(K,JSON.stringify(S));
+if(!S.v||S.v<2){
+  const def=[{id:1,n:'Chocolate negro (2 onzas)',c:35},{id:2,n:'Capítulo/peli extra',c:50},{id:3,n:'Compra de un artículo de 20 €',c:250},{id:4,n:'Yogur con miel',c:35},{id:5,n:'Puñado de frutos secos',c:35},{id:6,n:'Dos dátiles',c:35}];
+  def.forEach(x=>{const r=S.rewards.find(y=>y.id===x.id);if(r){r.n=x.n;r.c=x.c}else S.rewards.push(x)});
+  S.v=2;save();
+}
+if(S.v<3){
+  S.tasks.forEach(t=>{t.p=/cardio|leer|0\s?p/i.test(t.n)?3:(t.p||0)});
+  S.v=3;save();
+}
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const today=iso(new Date());
+let sel=today,view=new Date();view.setDate(1);
+
+function day(k){return S.days[k]||(S.days[k]={j:null,t:{}})}
+
+function calc(){
+  let pts=0,streak=0,run=0;
+  const keys=Object.keys(S.days).sort();
+  keys.forEach(k=>{
+    const d=S.days[k];
+    pts+=Object.keys(d.t).reduce((a,id)=>{const t=S.tasks.find(x=>x.id==id);return a+(d.t[id]&&t?(t.p||0):0)},0);
+    if(d.j===0){pts+=10;run++;if(run%2===0)pts+=15}
+    else if(d.j>0&&d.j<=0.5){pts+=7;run=0}
+    else if(d.j>0.5&&d.j<=1){pts+=5;run=0}
+    else if(d.j>1){run=0}
+  });
+  // racha actual: días limpios consecutivos hasta hoy/ayer
+  let d=new Date();
+  if(!(S.days[iso(d)]&&S.days[iso(d)].j!==null))d.setDate(d.getDate()-1);
+  while(S.days[iso(d)]&&S.days[iso(d)].j===0){streak++;d.setDate(d.getDate()-1)}
+  const spent=S.claimed.reduce((a,c)=>a+c.c,0);
+  let wk=0;
+  for(let i=0;i<7;i++){const x=new Date();x.setDate(x.getDate()-i);const e=S.days[iso(x)];if(e&&e.j)wk+=e.j}
+  return{pts:pts-spent,streak,wk};
+}
+
+function render(){
+  const c=calc();
+  pts.textContent=c.pts;streak.textContent=c.streak;week.textContent=fmt(c.wk);
+  // calendario
+  mon.textContent=view.toLocaleDateString('es-ES',{month:'long',year:'numeric'});
+  let h=['L','M','X','J','V','S','D'].map(x=>`<div class="h">${x}</div>`).join('');
+  const first=(view.getDay()+6)%7,n=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();
+  for(let i=0;i<first;i++)h+='<div class="h"></div>';
+  for(let i=1;i<=n;i++){
+    const k=iso(new Date(view.getFullYear(),view.getMonth(),i));
+    const d=S.days[k];
+    let cl='';
+    if(d&&d.j!==null&&d.j!==undefined)cl=d.j===0.5?'ch':'c'+Math.min(Math.ceil(d.j),3);
+    h+=`<div class="${cl} ${k===sel?'sel':''} ${k===today?'today':''}" onclick="pick('${k}')">${i}</div>`;
+  }
+  cal.innerHTML=h;
+  // día
+  const d=day(sel);
+  dt.textContent=new Date(sel+'T12:00').toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
+  j.innerHTML=`<div style="flex:1.4;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700">🍫 ${d.j===null||d.j===undefined?'—':fmt(d.j)}</div><button class="${d.j===0?'on':''}" onclick="setJ(0)">0</button><button onclick="addJ(1)">+1</button><button onclick="addJ(0.5)">+½</button><button onclick="addJ(-0.5)">−½</button>`;
+  tasks.innerHTML=S.tasks.map(t=>edit?`<div class="row"><input type="text" class="ed" value="${esc(t.n)}" onchange="renT(${t.id},this.value)"><input type="number" class="ed num" value="${t.p||0}" onchange="ptsT(${t.id},+this.value)"><button class="x" onclick="shift(S.tasks,${t.id},-1)">▲</button><button class="x" onclick="shift(S.tasks,${t.id},1)">▼</button><button class="x" onclick="delT(${t.id})">✕</button></div>`:`<div class="row"><input type="checkbox" id="t${t.id}" ${d.t[t.id]?'checked':''} onchange="tog(${t.id})"><label for="t${t.id}">${esc(t.n)}${t.p?` <span class="small">+${t.p} 🪶</span>`:''}</label></div>`).join('');
+  at.style.display=edit?'flex':'none';ar.style.display=edit?'flex':'none';eb.textContent=edit?'✅ Listo':'✏️ Editar';
+  rw.innerHTML=S.rewards.map(r=>edit?`<div class="row"><input type="text" class="ed" value="${esc(r.n)}" onchange="renR(${r.id},this.value)"><input type="number" class="ed num" value="${r.c}" onchange="cosR(${r.id},+this.value)"><button class="x" onclick="shift(S.rewards,${r.id},-1)">▲</button><button class="x" onclick="shift(S.rewards,${r.id},1)">▼</button><button class="x" onclick="delR(${r.id})">✕</button></div>`:`<div class="row"><label>${esc(r.n)} <span class="small">· ${r.c} 🪶</span></label><button class="p" ${c.pts<r.c?'disabled':''} onclick="claim(${r.id})">Canjear</button></div>`).join('');
+  cl.innerHTML=S.claimed.length?S.claimed.slice().reverse().map(x=>`🎁 ${x.n} <span class="small">(${x.d})</span>`).join('<br>'):'Nada todavía';
+}
+function mv(n){view.setMonth(view.getMonth()+n);render()}
+function pick(k){sel=k;render()}
+function setJ(v){const d=day(sel);d.j=d.j===v?null:v;save();render()}
+function addJ(n){const d=day(sel);if((d.j===null||d.j===undefined)&&n<0)return;d.j=Math.max(0,(d.j||0)+n);save();render()}
+function fmt(v){return v%1?(Math.floor(v)||'')+'½':String(v)}
+function tog(id){const d=day(sel);d.t[id]=!d.t[id];save();render()}
+let edit=false;function toggleEdit(){edit=!edit;render()}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;')}
+function shift(a,id,n){const i=a.findIndex(x=>x.id===id),k=i+n;if(i<0||k<0||k>=a.length)return;[a[i],a[k]]=[a[k],a[i]];save();render()}
+function ptsT(id,v){const t=S.tasks.find(x=>x.id===id);if(t)t.p=Math.max(0,v||0);save();render()}
+function renT(id,v){const t=S.tasks.find(x=>x.id===id);if(t&&v.trim())t.n=v.trim();save();render()}
+function renR(id,v){const r=S.rewards.find(x=>x.id===id);if(r&&v.trim())r.n=v.trim();save();render()}
+function cosR(id,v){const r=S.rewards.find(x=>x.id===id);if(r&&v>0)r.c=v;save();render()}
+function addT(){const v=nt.value.trim();if(!v)return;S.tasks.push({id:S.nid++,n:v});nt.value='';save();render()}
+function delT(id){S.tasks=S.tasks.filter(t=>t.id!==id);save();render()}
+function addR(){const v=nr.value.trim(),c=+nc.value;if(!v||!c)return;S.rewards.push({id:S.nid++,n:v,c});nr.value='';save();render()}
+function delR(id){S.rewards=S.rewards.filter(r=>r.id!==id);save();render()}
+function claim(id){const r=S.rewards.find(x=>x.id===id);if(!r||calc().pts<r.c)return;S.claimed.push({n:r.n,c:r.c,d:today});save();render()}
+render();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+</script>
+</body>
+</html>
