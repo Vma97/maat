@@ -40,36 +40,12 @@ input[type=text],input[type=number]{background:#ead9ab;color:var(--txt);border:0
 </style>
 </head>
 <body>
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h1 style="margin:0">🪶 Maat</h1><button id="eb" onclick="toggleEdit()">✏️ Editar</button></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span></span><button id="eb" onclick="toggleEdit()">✏️ Editar</button></div>
 
-<div class="card" style="padding:8px;background:#efdfb0">
-<img src="maat.png" alt="Maat" style="display:none;width:100%;border-radius:8px" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='maat.jpg'}" onload="this.style.display='block';document.getElementById('maat').style.display='none'">
-<svg id="maat" viewBox="0 0 400 130" width="100%" xmlns="http://www.w3.org/2000/svg">
-  <rect x="0" y="0" width="400" height="8" fill="#3bb5ad"/>
-  <g id="wl">
-    <polygon points="188,50 14,34 22,98 188,80" fill="#3bb5ad"/>
-    <polygon points="188,54 60,46 64,86 188,76" fill="#2f5fb0"/>
-    <polygon points="14,34 22,98 34,96 28,36" fill="#c0392b"/>
-  </g>
-  <g id="wr">
-    <polygon points="212,50 386,34 378,98 212,80" fill="#3bb5ad"/>
-    <polygon points="212,54 340,46 336,86 212,76" fill="#2f5fb0"/>
-    <polygon points="386,34 378,98 366,96 372,36" fill="#c0392b"/>
-  </g>
-  <g id="fl" stroke="#12534f" stroke-width="1" opacity=".45"></g>
-  <line x1="190" y1="53" x2="90" y2="48" stroke="#e0953a" stroke-width="5" stroke-linecap="round"/>
-  <line x1="210" y1="53" x2="310" y2="48" stroke="#e0953a" stroke-width="5" stroke-linecap="round"/>
-  <path d="M188 50 H212 L214 98 H186 Z" fill="#b5523b"/>
-  <path d="M186 98 Q200 110 236 108 L240 114 L174 116 Z" fill="#e0953a"/>
-  <circle cx="200" cy="34" r="10" fill="#e0953a"/>
-  <path d="M189 34 Q189 20 200 20 Q211 20 211 34 L211 48 L206 48 L206 32 L194 32 L194 48 L189 48 Z" fill="#1a1a1a"/>
-  <ellipse cx="200" cy="9" rx="3.5" ry="9" fill="#f6f1e0" stroke="#999" stroke-width=".8"/>
-  <rect x="20" y="118" width="360" height="3" fill="#7d6641"/>
-</svg>
-</div>
+<div style="text-align:center;margin-bottom:12px"><img src="balanza.png" alt="Balanza" style="width:60%;max-width:240px;border-radius:50%"></div>
 
 <div class="card stats">
-  <div class="stat"><b id="pts">0</b><span>🪶 puntos</span></div>
+  <div class="stat"><b id="pts">0</b><span>⚖️ puntos</span></div>
   <div class="stat"><b id="streak">0</b><span>racha limpia</span></div>
   <div class="stat"><b id="week">0</b><span>🍫 7 días</span></div>
 </div>
@@ -83,7 +59,7 @@ input[type=text],input[type=number]{background:#ead9ab;color:var(--txt);border:0
 <div class="card">
   <h2 id="dt"></h2>
   <div class="j" id="j"></div>
-  <div class="small" style="margin:6px 0 10px">🍫 de este día: los botones suman. 0 = +10 🪶, hasta ½ = +7 🪶, hasta 1 = +5 🪶. Cada 2 días limpios seguidos: +15 🪶</div>
+  <div class="small" style="margin:6px 0 10px">🍫 de este día: los botones suman. 0 = +10 ⚖️, hasta ½ = +7 ⚖️, hasta 1 = +5 ⚖️. Cada 2 días limpios seguidos: +15 ⚖️</div>
   <div id="tasks"></div>
   <div class="add" id="at"><input type="text" id="nt" placeholder="Nueva tarea diaria"><button onclick="addT()">+</button></div>
 </div>
@@ -106,7 +82,6 @@ input[type=text],input[type=number]{background:#ead9ab;color:var(--txt);border:0
 </div>
 
 <script>
-(function(){let s='';for(let i=0;i<=11;i++){const y1=52+28*i/11,x2=16+6*i/11,y2=34+64*i/11;s+=`<line x1="190" y1="${y1}" x2="${x2}" y2="${y2}"/><line x1="210" y1="${y1}" x2="${400-x2}" y2="${y2}"/>`}document.getElementById('fl').innerHTML=s})();
 const K='equilibrio_v1';
 let S=JSON.parse(localStorage.getItem(K)||'null')||{
   days:{},
@@ -171,9 +146,9 @@ function render(){
   const d=day(sel);
   dt.textContent=new Date(sel+'T12:00').toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
   j.innerHTML=`<div style="flex:1.4;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700">🍫 ${d.j===null||d.j===undefined?'—':fmt(d.j)}</div><button class="${d.j===0?'on':''}" onclick="setJ(0)">0</button><button onclick="addJ(1)">+1</button><button onclick="addJ(0.5)">+½</button><button onclick="addJ(-0.5)">−½</button>`;
-  tasks.innerHTML=S.tasks.map(t=>edit?`<div class="row"><input type="text" class="ed" value="${esc(t.n)}" onchange="renT(${t.id},this.value)"><input type="number" class="ed num" value="${t.p||0}" onchange="ptsT(${t.id},+this.value)"><button class="x" onclick="shift(S.tasks,${t.id},-1)">▲</button><button class="x" onclick="shift(S.tasks,${t.id},1)">▼</button><button class="x" onclick="delT(${t.id})">✕</button></div>`:`<div class="row"><input type="checkbox" id="t${t.id}" ${d.t[t.id]?'checked':''} onchange="tog(${t.id})"><label for="t${t.id}">${esc(t.n)}${t.p?` <span class="small">+${t.p} 🪶</span>`:''}</label></div>`).join('');
+  tasks.innerHTML=S.tasks.map(t=>edit?`<div class="row"><input type="text" class="ed" value="${esc(t.n)}" onchange="renT(${t.id},this.value)"><input type="number" class="ed num" value="${t.p||0}" onchange="ptsT(${t.id},+this.value)"><button class="x" onclick="shift(S.tasks,${t.id},-1)">▲</button><button class="x" onclick="shift(S.tasks,${t.id},1)">▼</button><button class="x" onclick="delT(${t.id})">✕</button></div>`:`<div class="row"><input type="checkbox" id="t${t.id}" ${d.t[t.id]?'checked':''} onchange="tog(${t.id})"><label for="t${t.id}">${esc(t.n)}${t.p?` <span class="small">+${t.p} ⚖️</span>`:''}</label></div>`).join('');
   at.style.display=edit?'flex':'none';ar.style.display=edit?'flex':'none';eb.textContent=edit?'✅ Listo':'✏️ Editar';
-  rw.innerHTML=S.rewards.map(r=>edit?`<div class="row"><input type="text" class="ed" value="${esc(r.n)}" onchange="renR(${r.id},this.value)"><input type="number" class="ed num" value="${r.c}" onchange="cosR(${r.id},+this.value)"><button class="x" onclick="shift(S.rewards,${r.id},-1)">▲</button><button class="x" onclick="shift(S.rewards,${r.id},1)">▼</button><button class="x" onclick="delR(${r.id})">✕</button></div>`:`<div class="row"><label>${esc(r.n)} <span class="small">· ${r.c} 🪶</span></label><button class="p" ${c.pts<r.c?'disabled':''} onclick="claim(${r.id})">Canjear</button></div>`).join('');
+  rw.innerHTML=S.rewards.map(r=>edit?`<div class="row"><input type="text" class="ed" value="${esc(r.n)}" onchange="renR(${r.id},this.value)"><input type="number" class="ed num" value="${r.c}" onchange="cosR(${r.id},+this.value)"><button class="x" onclick="shift(S.rewards,${r.id},-1)">▲</button><button class="x" onclick="shift(S.rewards,${r.id},1)">▼</button><button class="x" onclick="delR(${r.id})">✕</button></div>`:`<div class="row"><label>${esc(r.n)} <span class="small">· ${r.c} ⚖️</span></label><button class="p" ${c.pts<r.c?'disabled':''} onclick="claim(${r.id})">Canjear</button></div>`).join('');
   cl.innerHTML=S.claimed.length?S.claimed.slice().reverse().map(x=>`🎁 ${x.n} <span class="small">(${x.d})</span>`).join('<br>'):'Nada todavía';
 }
 function mv(n){view.setMonth(view.getMonth()+n);render()}

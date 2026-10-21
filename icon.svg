@@ -1,26 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="0" fill="#1d4e9b"/>
+  <rect width="512" height="512" fill="#1d4e9b"/>
   <circle cx="256" cy="256" r="230" fill="#f3e5bb"/>
   <circle cx="256" cy="256" r="230" fill="none" stroke="#3bb5ad" stroke-width="14"/>
-  <!-- poste y base -->
   <rect x="246" y="120" width="20" height="270" rx="6" fill="#b5523b"/>
   <path d="M176 400 Q256 370 336 400 L336 414 L176 414 Z" fill="#e0953a"/>
-  <!-- remate -->
   <circle cx="256" cy="112" r="18" fill="#e0953a"/>
-  <!-- brazo -->
   <rect x="116" y="146" width="280" height="14" rx="7" fill="#e0953a"/>
-  <!-- cuerdas -->
   <g stroke="#3b2a14" stroke-width="4">
     <line x1="132" y1="153" x2="92" y2="268"/><line x1="132" y1="153" x2="172" y2="268"/>
     <line x1="380" y1="153" x2="340" y2="268"/><line x1="380" y1="153" x2="420" y2="268"/>
   </g>
   <circle cx="132" cy="153" r="9" fill="#c0392b"/><circle cx="380" cy="153" r="9" fill="#c0392b"/>
-  <!-- platillos -->
   <path d="M80 268 H184 Q176 310 132 310 Q88 310 80 268 Z" fill="#3bb5ad"/>
   <path d="M328 268 H432 Q424 310 380 310 Q336 310 328 268 Z" fill="#3bb5ad"/>
-  <!-- corazón (izq) -->
-  <path d="M132 266 C112 248 112 228 124 226 C130 225 132 230 132 234 C132 230 134 225 140 226 C152 228 152 248 132 266 Z" fill="#c0392b"/>
-  <!-- pluma de Maat (dcha) -->
-  <path d="M380 266 C362 230 366 196 392 178 C388 210 392 236 384 266 Z" fill="#fffaf0" stroke="#2f5fb0" stroke-width="4"/>
-  <line x1="381" y1="266" x2="388" y2="190" stroke="#2f5fb0" stroke-width="3"/>
+  <!-- cerebro (izq) -->
+  <g>
+    <path d="M100 264 C92 262 90 250 98 245 C92 236 100 224 110 227 C112 216 126 212 132 220 C138 212 152 216 154 227 C164 224 172 236 166 245 C174 250 172 262 164 264 Z" fill="#f2a7b8" stroke="#a8486a" stroke-width="3.5" stroke-linejoin="round"/>
+    <g fill="none" stroke="#a8486a" stroke-width="3" stroke-linecap="round">
+      <path d="M132 222 V264"/>
+      <path d="M108 238 Q116 236 118 246 Q120 254 112 256"/>
+      <path d="M156 238 Q148 236 146 246 Q144 254 152 256"/>
+      <path d="M120 228 Q124 234 120 240"/><path d="M144 228 Q140 234 144 240"/>
+    </g>
+  </g>
+  <!-- corazón (dcha) -->
+  <path d="M380 266 C350 244 348 220 364 216 C373 214 378 221 380 228 C382 221 387 214 396 216 C412 220 410 244 380 266 Z" fill="#c0392b" stroke="#7d1f15" stroke-width="3"/>
 </svg>
