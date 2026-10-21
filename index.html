@@ -99,6 +99,12 @@ input[type=text],input[type=number]{background:#ead9ab;color:var(--txt);border:0
   <div id="cl" class="small">Nada todavía</div>
 </div>
 
+<div class="card">
+  <h2>Copia de seguridad</h2>
+  <div class="j"><button onclick="exp()">⬇️ Exportar</button><button onclick="imf.click()">⬆️ Importar</button></div>
+  <input type="file" id="imf" accept=".json,application/json" style="display:none" onchange="imp(this.files[0])">
+</div>
+
 <script>
 (function(){let s='';for(let i=0;i<=11;i++){const y1=52+28*i/11,x2=16+6*i/11,y2=34+64*i/11;s+=`<line x1="190" y1="${y1}" x2="${x2}" y2="${y2}"/><line x1="210" y1="${y1}" x2="${400-x2}" y2="${y2}"/>`}document.getElementById('fl').innerHTML=s})();
 const K='equilibrio_v1';
@@ -188,6 +194,8 @@ function delT(id){S.tasks=S.tasks.filter(t=>t.id!==id);save();render()}
 function addR(){const v=nr.value.trim(),c=+nc.value;if(!v||!c)return;S.rewards.push({id:S.nid++,n:v,c});nr.value='';save();render()}
 function delR(id){S.rewards=S.rewards.filter(r=>r.id!==id);save();render()}
 function claim(id){const r=S.rewards.find(x=>x.id===id);if(!r||calc().pts<r.c)return;S.claimed.push({n:r.n,c:r.c,d:today});save();render()}
+function exp(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'}));a.download='maat-'+today+'.json';a.click()}
+function imp(f){if(!f)return;f.text().then(t=>{const d=JSON.parse(t);if(!d.days||!d.tasks)throw 0;if(!confirm('¿Reemplazar tus datos actuales con los del archivo?'))return;localStorage.setItem(K,t);location.reload()}).catch(()=>alert('Archivo no válido'))}
 render();
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
 </script>
